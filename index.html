@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Alien Defender - Galaxy Wars</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/solarsystem.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- SOLAR SYSTEM BACKGROUND -->
+    <div class="solar-system-bg">
+        <div class="stars-deep"></div>
+        <div class="stars-twinkling"></div>
+        
+        <div class="nebula-cloud nebula-1"></div>
+        <div class="nebula-cloud nebula-2"></div>
+        <div class="nebula-cloud nebula-3"></div>
+        
+        <!-- Sun -->
+        <div class="sun-core">
+            <div class="sun-inner"></div>
+            <div class="sun-glow-1"></div>
+            <div class="sun-glow-2"></div>
+            <div class="sun-rays"></div>
+            <div class="sun-flare"></div>
+        </div>
+        
+        <!-- Orbit Paths -->
+        <div class="orbit-path mercury-path"></div>
+        <div class="orbit-path venus-path"></div>
+        <div class="orbit-path earth-path"></div>
+        <div class="orbit-path mars-path"></div>
+        <div class="orbit-path jupiter-path"></div>
+        <div class="orbit-path saturn-path"></div>
+        <div class="orbit-path uranus-path"></div>
+        <div class="orbit-path neptune-path"></div>
+        
+        <!-- Planets -->
+        <div class="planet-container mercury-container">
+            <div class="planet mercury">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="planet-crater"></div>
+                <div class="planet-crater2"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container venus-container">
+            <div class="planet venus">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="venus-clouds"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container earth-container">
+            <div class="planet earth">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="earth-continent"></div>
+                <div class="earth-continent2"></div>
+                <div class="earth-clouds"></div>
+            </div>
+            <div class="moon-orbit">
+                <div class="moon"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container mars-container">
+            <div class="planet mars">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="mars-surface"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container jupiter-container">
+            <div class="planet jupiter">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="jupiter-stripe stripe1"></div>
+                <div class="jupiter-stripe stripe2"></div>
+                <div class="jupiter-stripe stripe3"></div>
+                <div class="jupiter-spot"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container saturn-container">
+            <div class="planet saturn">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="saturn-ring ring1"></div>
+                <div class="saturn-ring ring2"></div>
+                <div class="saturn-ring ring3"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container uranus-container">
+            <div class="planet uranus">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="uranus-ring"></div>
+            </div>
+        </div>
+        
+        <div class="planet-container neptune-container">
+            <div class="planet neptune">
+                <div class="planet-core"></div>
+                <div class="planet-glow"></div>
+                <div class="neptune-storm"></div>
+            </div>
+        </div>
+        
+        <div class="asteroid-belt"></div>
+        
+        <!-- Shooting Stars -->
+        <div class="shooting-star s1"></div>
+        <div class="shooting-star s2"></div>
+        <div class="shooting-star s3"></div>
+        <div class="shooting-star s4"></div>
+        <div class="shooting-star s5"></div>
+        
+        <!-- Distant Galaxies -->
+        <div class="distant-galaxy galaxy-1"></div>
+        <div class="distant-galaxy galaxy-2"></div>
+        <div class="distant-galaxy galaxy-3"></div>
+        
+        <!-- Cosmic Dust -->
+        <div class="cosmic-dust"></div>
+    </div>
+
+    <!-- Menu container Anda di sini -->
+
+    <!-- Menu container yang diperlebar -->
+<div class="menu-container" style="width: 800px; max-width: 90vw; padding: 40px;">
+    <h1 class="galaxy-title" style="font-size: 48px; white-space: nowrap; margin-bottom: 30px; text-align: center;">🌌 ALIEN DEFENDER 🌌</h1>
+    
+    <div class="menu-buttons">
+        <button class="menu-btn galaxy" onclick="showModeSelection()">🚀 MULAI GAME</button>
+        <button class="menu-btn galaxy" onclick="openSettings()">⚙️ PENGATURAN</button>
+        <button class="menu-btn galaxy" onclick="showHighscore()">🏆 HIGHSCORE</button>
+        <button class="menu-btn galaxy" onclick="showAbout()">📖 TENTANG</button>
+    </div>
+
+    <!-- Mode Selection Panel -->
+    <div id="modePanel" class="panel galaxy-panel mode-panel">
+        <h2>⚡ PILIH MODE PERTEMPURAN ⚡</h2>
+        
+        <div class="mode-grid">
+            <div class="mode-card" onclick="selectMode('classic', event)">
+                <div class="mode-icon">👾</div>
+                <h3>CLASSIC MODE</h3>
+                <div class="mode-badge">RECOMMENDED</div>
+                <p class="mode-desc">5 gelombang alien + 1 boss epik</p>
+                <div class="mode-features">
+                    <span>✅ Boss di wave 5</span>
+                    <span>✅ 3 nyawa awal</span>
+                    <span>✅ Item drops normal</span>
+                </div>
+            </div>
+            
+            <div class="mode-card" onclick="selectMode('endless', event)">
+                <div class="mode-icon">♾️</div>
+                <h3>ENDLESS MODE</h3>
+                <div class="mode-badge">MARATHON</div>
+                <p class="mode-desc">Bertahan selama mungkin</p>
+                <div class="mode-features">
+                    <span>✅ Semakin lama semakin sulit</span>
+                    <span>✅ Boss muncul random</span>
+                    <span>✅ Item lebih sering</span>
+                </div>
+            </div>
+            
+            <div class="mode-card" onclick="selectMode('bossrush', event)">
+                <div class="mode-icon">👾👾</div>
+                <h3>BOSS RUSH</h3>
+                <div class="mode-badge">CHALLENGE</div>
+                <p class="mode-desc">3 boss beruntun!</p>
+                <div class="mode-features">
+                    <span>✅ 3 boss berbeda</span>
+                    <span>✅ Hadiah besar</span>
+                    <span>✅ Item spesial</span>
+                </div>
+            </div>
+            
+            <div class="mode-card" onclick="selectMode('nightmare', event)">
+                <div class="mode-icon">💀</div>
+                <h3>NIGHTMARE</h3>
+                <div class="mode-badge">HARDCORE</div>
+                <p class="mode-desc">Untuk pemain berpengalaman</p>
+                <div class="mode-features">
+                    <span>⚠️ Alien 2x lebih cepat</span>
+                    <span>⚠️ Boss tiap 3 wave</span>
+                    <span>⚠️ 1 nyawa saja</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mode-footer">
+            <button class="close-btn" onclick="closeModeSelection()">TUTUP</button>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="panel galaxy-panel">
+        <h2>⚙️ PENGATURAN</h2>
+        
+        <div class="setting-group">
+            <label>🎮 GRAFIK</label>
+            <select id="graphicQuality">
+                <option value="low">Rendah (Ringan)</option>
+                <option value="medium" selected>Sedang (Recommended)</option>
+                <option value="high">Tinggi (Berat)</option>
+            </select>
+        </div>
+
+        <div class="setting-group">
+            <label>🔊 SUARA</label>
+            <div class="toggle-item">
+                <span>Efek Suara</span>
+                <input type="checkbox" id="sfxEnabled" checked>
+            </div>
+            <div class="toggle-item">
+                <span>Musik Latar</span>
+                <input type="checkbox" id="musicEnabled" checked>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <label>✨ EFEK VISUAL</label>
+            <div class="toggle-item">
+                <span>Efek Darah</span>
+                <input type="checkbox" id="bloodEnabled" checked>
+            </div>
+            <div class="toggle-item">
+                <span>Partikel Ledakan</span>
+                <input type="checkbox" id="particlesEnabled" checked>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="save-btn" onclick="saveSettings()">💾 SIMPAN</button>
+            <button class="close-btn" onclick="closeSettings()">❌ TUTUP</button>
+        </div>
+    </div>
+
+    <!-- Highscore Panel -->
+    <!-- Highscore Panel dengan Tombol Hapus -->
+<div id="highscorePanel" class="panel galaxy-panel">
+    <h2>🏆 HIGHSCORE</h2>
+    <div id="highscoreList" class="highscore-list"></div>
+    
+    <!-- Tombol-tombol untuk highscore -->
+    <div class="highscore-actions">
+        <button class="delete-btn" onclick="deleteAllHighscores()">
+            <span>🗑️</span> HAPUS SEMUA
+        </button>
+        <button class="close-btn" onclick="closeHighscore()">
+            <span>❌</span> TUTUP
+        </button>
+    </div>
+    
+    <!-- Konfirmasi Hapus (awalnya disembunyikan) -->
+    <div id="deleteConfirmDialog" class="confirm-dialog-small" style="display: none;">
+        <p>⚠️ Yakin ingin menghapus <strong>SEMUA</strong> highscore?</p>
+        <p class="warning-text">Data yang dihapus tidak dapat dikembalikan!</p>
+        <div class="confirm-buttons-small">
+            <button class="confirm-yes" onclick="confirmDeleteHighscores()">YA, HAPUS</button>
+            <button class="confirm-no" onclick="cancelDeleteHighscores()">BATAL</button>
+        </div>
+    </div>
+</div>
+
+    <!-- About Panel -->
+    <div id="aboutPanel" class="panel galaxy-panel">
+        <h2>📖 TENTANG GAME</h2>
+        <div class="about-content">
+            <p>Game shooting galaksi dengan sistem upgrade dan boss fight!</p>
+            <p>🎮 <strong>Kontrol:</strong></p>
+            <ul>
+                <li>A/D atau ←/→ : Gerak</li>
+                <li>SPACE : Tembak</li>
+                <li>E : Pakai Item</li>
+                <li>ESC : Pause</li>
+            </ul>
+            <p>💡 <strong>Tips:</strong></p>
+            <ul>
+                <li>Kumpulkan item untuk upgrade</li>
+                <li>Shield melindungi dari damage</li>
+                <li>Boss muncul di wave tertentu</li>
+            </ul>
+        </div>
+        <button class="close-btn" onclick="closeAbout()">TUTUP</button>
+        
+    </div>
+</div>
+    
+    <script src="js/sound.js"></script>
+    <script src="js/menu.js"></script>
+</body>
+</html>
