@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Alien Defender - Galaxy Battle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            touch-action: manipulation;
+            overscroll-behavior: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #gameCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1;
+            touch-action: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="galaxy-bg" id="galaxyBg">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="nebula"></div>
+        <div class="planet planet1"></div>
+        <div class="planet planet2"></div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="game-hud fullscreen-hud">
+        <div class="hud-left">
+            <div class="hud-card">
+                <span class="hud-icon">LIFE</span>
+                <span id="lives" class="hud-value">3</span>
+            </div>
+            <div class="hud-card">
+                <span class="hud-icon">SCR</span>
+                <span id="score" class="hud-value">0</span>
+            </div>
+            <div class="hud-card">
+                <span class="hud-icon">WAV</span>
+                <span id="wave" class="hud-value">1</span>
+            </div>
+            <div class="hud-card" id="modeDisplay">
+                <span class="hud-icon">MOD</span>
+                <span id="modeName" class="hud-value">CLASSIC</span>
+            </div>
+        </div>
+
+        <div class="hud-right">
+            <div class="weapon-level-card">
+                <span class="hud-icon">GUN</span>
+                <span id="weaponLevel" class="hud-value">Lv.1</span>
+            </div>
+            <div class="inventory-full">
+                <div class="item-card" data-key="1" onclick="useItem('health')">
+                    <span class="item-icon">HP</span>
+                    <span id="healthCount" class="item-count">0</span>
+                </div>
+                <div class="item-card" data-key="2" onclick="useItem('shield')">
+                    <span class="item-icon">SH</span>
+                    <span id="shieldCount" class="item-count">0</span>
+                </div>
+                <div class="item-card" data-key="3" onclick="useItem('rapid')">
+                    <span class="item-icon">RF</span>
+                    <span id="rapidCount" class="item-count">0</span>
+                </div>
+                <div class="item-card" data-key="4" onclick="useItem('upgrade')">
+                    <span class="item-icon">UP</span>
+                    <span id="upgradeCount" class="item-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bossHealthContainer" class="boss-health-container" style="display: none;">
+        <div class="boss-name" id="bossName">BOSS</div>
+        <div class="boss-health-bar">
+            <div class="boss-health-fill" id="bossHealthFill" style="width: 100%"></div>
+        </div>
+    </div>
+
+    <div class="game-controls-full">
+        <button class="ctrl-btn-full" data-key="P" onclick="togglePause()">
+            <span>||</span>
+            <span class="ctrl-label">JEDA</span>
+        </button>
+        <button class="ctrl-btn-full" data-key="F" onclick="toggleFullscreen()">
+            <span>FS</span>
+            <span class="ctrl-label">FULL</span>
+        </button>
+        <button class="ctrl-btn-full" data-key="M" onclick="showMenu()">
+            <span>HOME</span>
+            <span class="ctrl-label">MENU</span>
+        </button>
+        <button class="ctrl-btn-full" data-key="R" onclick="restartGame()">
+            <span>RST</span>
+            <span class="ctrl-label">ULANG</span>
+        </button>
+    </div>
+
+    <div id="mobileControls" class="mobile-controls" aria-label="Mobile controls">
+        <div class="mobile-move-pad">
+            <button id="mobileLeftBtn" class="mobile-btn mobile-move" aria-label="Move left">LEFT</button>
+            <button id="mobileRightBtn" class="mobile-btn mobile-move" aria-label="Move right">RIGHT</button>
+        </div>
+        <button id="mobileFireBtn" class="mobile-btn mobile-fire" aria-label="Fire weapon">FIRE</button>
+    </div>
+
+    <div id="startScreen" class="overlay-full start-overlay">
+        <div class="overlay-content">
+            <h1 class="galaxy-title">ALIEN DEFENDER</h1>
+            <p class="subtitle">Mode: <span id="selectedModeDisplay">CLASSIC</span></p>
+            <button class="start-btn-full" onclick="startGame()">MULAI BERTEMPUR</button>
+        </div>
+    </div>
+
+    <div id="gameOverScreen" class="overlay-full gameover-overlay" style="display: none;">
+        <div class="overlay-content">
+            <h2 class="gameover-title">GAME OVER</h2>
+            <div class="final-stats">
+                <div class="stat-row">
+                    <span>SKOR AKHIR</span>
+                    <span id="finalScore" class="stat-highlight">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>ALIEN DIKALAHKAN</span>
+                    <span id="finalAliens" class="stat-highlight">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>BOSS DIKALAHKAN</span>
+                    <span id="finalBosses" class="stat-highlight">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>GELOMBANG</span>
+                    <span id="finalWave" class="stat-highlight">1</span>
+                </div>
+            </div>
+            <div class="overlay-buttons">
+                <button class="overlay-btn primary" onclick="restartGame()">MAIN LAGI</button>
+                <button class="overlay-btn secondary" onclick="goToMenu()">MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pauseScreen" class="overlay-full pause-overlay" style="display: none;">
+        <div class="overlay-content">
+            <h2>JEDA</h2>
+            <button class="pause-btn-full" onclick="resumeGame()">LANJUTKAN</button>
+            <button class="pause-btn-full" onclick="restartGame()">RESTART</button>
+            <button class="pause-btn-full" onclick="showMenuConfirm()">MENU</button>
+        </div>
+    </div>
+
+    <div id="menuConfirmDialog" class="confirm-dialog" style="display: none;">
+        <div class="confirm-content">
+            <h3>WARNING</h3>
+            <p>Apakah Anda yakin ingin kembali ke menu?</p>
+            <p class="warning-text">Game akan berhenti dan progress tidak disimpan!</p>
+            <div class="confirm-buttons">
+                <button class="confirm-btn yes" onclick="confirmGoToMenu()">YA, KEMBALI</button>
+                <button class="confirm-btn no" onclick="cancelGoToMenu()">BATAL</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="shieldIndicator" class="status-indicator shield" style="display: none;">
+        SHIELD ACTIVE
+    </div>
+    <div id="rapidIndicator" class="status-indicator rapid" style="display: none;">
+        RAPID FIRE
+    </div>
+    <div id="bossWarning" class="boss-warning" style="display: none;">
+        BOSS APPROACHING
+    </div>
+
+    <script src="js/sound.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/solarsystem.js"></script>
+</body>
+</html>

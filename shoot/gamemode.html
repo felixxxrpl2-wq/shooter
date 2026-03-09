@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Defender - Mode Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="space-bg">
+        <div class="stars"></div>
+        <div class="nebula-blue"></div>
+    </div>
+
+    <div class="menu-container modern-menu">
+        <h1 class="blue-title">⚡ PILIH MODE ⚡</h1>
+        
+        <div class="mode-grid-modern">
+            <div class="mode-card-blue" onclick="selectMode('classic')">
+                <div class="mode-icon">👾</div>
+                <h3>Mode Klasik</h3>
+                <p>Hadapi gelombang alien yang semakin kuat</p>
+                <div class="mode-stats">
+                    <span>🎯 3 Nyawa</span>
+                    <span>👾 Boss tiap wave 5</span>
+                </div>
+            </div>
+
+            <div class="mode-card-blue" onclick="selectMode('endless')">
+                <div class="mode-icon">♾️</div>
+                <h3>Mode Endless</h3>
+                <p>Bertahan selama mungkin</p>
+                <div class="mode-stats">
+                    <span>❤️ Regenerasi nyawa</span>
+                    <span>⚡ Item lebih sering</span>
+                </div>
+            </div>
+
+            <div class="mode-card-blue" onclick="selectMode('bossrush')">
+                <div class="mode-icon">👾👾</div>
+                <h3>Boss Rush</h3>
+                <p>Hadapi 5 boss berurutan</p>
+                <div class="mode-stats">
+                    <span>💀 Pattern unik</span>
+                    <span>⭐ Hadiah besar</span>
+                </div>
+            </div>
+
+            <div class="mode-card-blue" onclick="selectMode('nightmare')">
+                <div class="mode-icon">💀</div>
+                <h3>Nightmare</h3>
+                <p>Untuk pemain berpengalaman</p>
+                <div class="mode-stats">
+                    <span>⚠️ 1 nyawa</span>
+                    <span>🚀 Alien 2x cepat</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="back-btn-blue" onclick="window.location.href='index.html'">← Kembali ke Menu</button>
+    </div>
+
+    <script src="js/sound.js"></script>
+    <script src="js/gamemode.js"></script>
+</body>
+</html>
